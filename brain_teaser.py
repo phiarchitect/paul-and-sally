@@ -104,8 +104,9 @@ class Tester:
         self.sally = Sally(self.S)
 
     def run_conversation(self):
+        MAX_TURNS = 5
         turn = 0
-        while True:
+        while turn < MAX_TURNS:
             turn += 1
             print(f"Turn {turn}:")
 
