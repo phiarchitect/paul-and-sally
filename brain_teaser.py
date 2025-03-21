@@ -1,18 +1,3 @@
-"""
-this code is intended to model this brainteaser:
-
-There are two people, Paul and Sally, both very smart logicians. Paul knows the
-product of two natural numbers, greater than zero. He doesn't know the two
-natural numbers, just their product. Sally knows the sum of the same two
-natural numbers. She doesn't know the natural numbers, just the sum. Paul knows
-that Sally knows the sum of the same two natural numbers , and Sally knows that
-Paul knows the product of the two natural numbers. Paul says to Sally "I don't
-know what the two numbers are." Sally says to Paul "I don't know what the two
-nu mbers are either." Paul says to Sally "I still don't know what the two
-numbers are." Sally says to Paul "I still don't know what they are either."
-Paul then says "Now I know what the two numbers are." What are the 2 numbers? 
-
-"""
 import random
 
 def is_prime(n):
@@ -32,12 +17,23 @@ class Paul:
 
     def find_possible_pairs(self):
         # Initial factor pairs for P
-        for i in range(1, int(self.P**0.5) + 1):
+        for i in range(2, int(self.P**0.5) + 1):  # Start from 2
             if self.P % i == 0:
                 self.possible_pairs.append((i, self.P // i))
 
     def knows_numbers(self):
-        return len(self.possible_pairs) == 1
+        # Count prime factors of P
+        factors = []
+        temp_p = self.P
+        for i in range(2, int(temp_p**0.5) + 1):
+            while temp_p % i == 0:
+                factors.append(i)
+                temp_p //= i
+        if temp_p > 1:
+            factors.append(temp_p)
+
+        return len(factors) == 2
+
 
     def eliminate_pairs(self, pairs_to_eliminate):
         self.possible_pairs = [pair for pair in self.possible_pairs if pair not in pairs_to_eliminate]
