@@ -1,0 +1,26 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+Paul	brain_teaser.py	/^class Paul:$/;"	c
+Sally	brain_teaser.py	/^class Sally:$/;"	c
+Tester	brain_teaser.py	/^class Tester:$/;"	c
+__init__	brain_teaser.py	/^    def __init__(self):$/;"	m	class:Tester
+__init__	brain_teaser.py	/^    def __init__(self, P):$/;"	m	class:Paul
+__init__	brain_teaser.py	/^    def __init__(self, S):$/;"	m	class:Sally
+does_not_know_numbers	brain_teaser.py	/^    def does_not_know_numbers(self):$/;"	m	class:Paul
+does_not_know_numbers	brain_teaser.py	/^    def does_not_know_numbers(self):$/;"	m	class:Sally
+eliminate_pairs	brain_teaser.py	/^    def eliminate_pairs(self, pairs_to_eliminate):$/;"	m	class:Paul
+eliminate_pairs	brain_teaser.py	/^    def eliminate_pairs(self, pairs_to_eliminate):$/;"	m	class:Sally
+find_possible_pairs	brain_teaser.py	/^    def find_possible_pairs(self):$/;"	m	class:Paul
+find_possible_pairs	brain_teaser.py	/^    def find_possible_pairs(self):$/;"	m	class:Sally
+get_numbers	brain_teaser.py	/^    def get_numbers(self):$/;"	m	class:Paul
+get_numbers	brain_teaser.py	/^    def get_numbers(self):$/;"	m	class:Sally
+initial_elimination	brain_teaser.py	/^    def initial_elimination(self):$/;"	m	class:Sally
+is_prime	brain_teaser.py	/^def is_prime(n):$/;"	f
+knows_numbers	brain_teaser.py	/^    def knows_numbers(self):$/;"	m	class:Paul
+knows_numbers	brain_teaser.py	/^    def knows_numbers(self):$/;"	m	class:Sally
+run_conversation	brain_teaser.py	/^    def run_conversation(self):$/;"	m	class:Tester
+tester	brain_teaser.py	/^tester = Tester()$/;"	v
