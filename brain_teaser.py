@@ -28,12 +28,10 @@ class Paul:
         self.possible_pairs = [pair for pair in self.possible_pairs if pair not in pairs_to_eliminate]
 
     def does_not_know_numbers(self):
-        if self.asked == 1:
-            return True  # Paul doesn't know on the first turn
-
         pairs_to_eliminate = []
         for pair in self.possible_pairs:
             temp_sally = Sally(pair[0] + pair[1])
+            temp_sally.initial_elimination()  # Simulate Sally's initial state
             if temp_sally.knows_numbers():
                 pairs_to_eliminate.append(pair)
         self.eliminate_pairs(pairs_to_eliminate)
@@ -74,10 +72,6 @@ class Sally:
         self.eliminate_pairs(pairs_to_eliminate)
 
     def does_not_know_numbers(self):
-        if self.asked == 1:
-            self.initial_elimination()
-            return True # Sally doesn't know on the first turn (after initial elimination)
-
         pairs_to_eliminate = []
         for pair in self.possible_pairs:
             temp_paul = Paul(pair[0] * pair[1])
