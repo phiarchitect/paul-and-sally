@@ -40,6 +40,12 @@ class Paul:
         self.eliminate_pairs(pairs_to_eliminate)
         return not self.knows_numbers()
 
+    def get_numbers(self):
+        if self.knows_numbers():
+            return self.possible_pairs[0]
+        else:
+            return None
+
 class Sally:
     def __init__(self, S):
         self.S = S
@@ -80,6 +86,11 @@ class Sally:
         self.eliminate_pairs(pairs_to_eliminate)
         return not self.knows_numbers()
 
+    def get_numbers(self):
+        if self.knows_numbers():
+            return self.possible_pairs[0]
+        else:
+            return None
 class Tester:
     def __init__(self):
         self.a = random.randint(2, 19)  # Numbers greater than 1
