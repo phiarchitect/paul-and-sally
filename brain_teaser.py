@@ -1,3 +1,18 @@
+"""
+this code is intended to model this brainteaser:
+
+There are two people, Paul and Sally, both very smart logicians. Paul knows the
+product of two natural numbers, greater than zero. He doesn't know the two
+natural numbers, just their product. Sally knows the sum of the same two
+natural numbers. She doesn't know the natural numbers, just the sum. Paul knows
+that Sally knows the sum of the same two natural numbers , and Sally knows that
+Paul knows the product of the two natural numbers. Paul says to Sally "I don't
+know what the two numbers are." Sally says to Paul "I don't know what the two
+nu mbers are either." Paul says to Sally "I still don't know what the two
+numbers are." Sally says to Paul "I still don't know what they are either."
+Paul then says "Now I know what the two numbers are." What are the 2 numbers? 
+
+"""
 import random
 
 def is_prime(n):
