@@ -69,7 +69,7 @@ class Paul:
     def get_numbers(self):
         self.asked += 1
         self.does_not_know_numbers()  # Trigger eliminations
-        if self.knows_numbers():
+        if self.knows_numbers():  # Check *after* eliminations
             return self.possible_pairs[0]
         else:
             return None
@@ -115,7 +115,7 @@ class Sally:
     def get_numbers(self):
         self.asked += 1
         self.does_not_know_numbers()  # Trigger eliminations
-        if self.knows_numbers():
+        if self.knows_numbers(): # Check *after* eliminations
             return self.possible_pairs[0]
         else:
             return None
