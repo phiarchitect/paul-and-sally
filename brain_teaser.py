@@ -28,7 +28,6 @@ class Paul:
         self.possible_pairs = [pair for pair in self.possible_pairs if pair not in pairs_to_eliminate]
 
     def does_not_know_numbers(self):
-        self.asked += 1
         if self.asked == 1:
             return True  # Paul doesn't know on the first turn
 
@@ -41,6 +40,8 @@ class Paul:
         return not self.knows_numbers()
 
     def get_numbers(self):
+        self.asked += 1
+        self.does_not_know_numbers() # Trigger eliminations
         if self.knows_numbers():
             return self.possible_pairs[0]
         else:
@@ -73,7 +74,6 @@ class Sally:
         self.eliminate_pairs(pairs_to_eliminate)
 
     def does_not_know_numbers(self):
-        self.asked += 1
         if self.asked == 1:
             self.initial_elimination()
             return True # Sally doesn't know on the first turn (after initial elimination)
@@ -87,10 +87,13 @@ class Sally:
         return not self.knows_numbers()
 
     def get_numbers(self):
+        self.asked += 1
+        self.does_not_know_numbers()  # Trigger eliminations
         if self.knows_numbers():
             return self.possible_pairs[0]
         else:
             return None
+
 class Tester:
     def __init__(self):
         self.a = random.randint(2, 19)  # Numbers greater than 1
@@ -100,44 +103,41 @@ class Tester:
         self.paul = Paul(self.P)
         self.sally = Sally(self.S)
 
-
     def run_conversation(self):
         turn = 0
         while True:
             turn += 1
             print(f"Turn {turn}:")
 
-            paul_still_doesnt_know = self.paul.does_not_know_numbers()
-            if paul_still_doesnt_know:
+            paul_numbers = self.paul.get_numbers()
+            if paul_numbers is None:
                 print(f"  Paul's possible pairs: {self.paul.possible_pairs}")
             else:
                 print("Paul now knows the numbers")
-                if self.sally.knows_numbers():
-                    print(f"Paul: The numbers are {self.paul.possible_pairs[0]}")
+                if self.sally.get_numbers() is not None:
+                    print(f"Paul: The numbers are {paul_numbers}")
                     return True
                 else:
                     print("Paul and Sally could not determine the numbers.")
                     return False
 
-
-            sally_still_doesnt_know = self.sally.does_not_know_numbers()
-
-            if sally_still_doesnt_know:
+            sally_numbers = self.sally.get_numbers()
+            if sally_numbers is None:
                 print(f"  Sally's possible pairs: {self.sally.possible_pairs}")
             else:
                 print("Sally now knows the numbers")
-                if self.paul.knows_numbers():
-                    print(f"Paul: The numbers are {self.paul.possible_pairs[0]}")
+                if self.paul.get_numbers() is not None:
+                    print(f"Sally: The numbers are {sally_numbers}")
                     return True
                 else:
                     print("Paul and Sally could not determine the numbers.")
                     return False
 
-            if not paul_still_doesnt_know and not sally_still_doesnt_know:
-                break;
+            if paul_numbers is not None and sally_numbers is not None:
+                break  # Both know the numbers (shouldn't happen, but safe to check)
 
-        if self.paul.knows_numbers() and self.sally.knows_numbers():
-            print(f"Paul: The numbers are {self.paul.possible_pairs[0]}")
+        if self.paul.get_numbers() is not None and self.sally.get_numbers() is not None:
+            print(f"Paul: The numbers are {self.paul.get_numbers()}")
             return True
 
         print("Paul and Sally could not determine the numbers.")
