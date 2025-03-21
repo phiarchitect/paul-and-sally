@@ -1,3 +1,5 @@
+import random
+
 def is_prime(n):
     if n <= 1:
         return False
@@ -24,28 +26,6 @@ class Paul:
     def eliminate_pairs(self, pairs_to_eliminate):
         self.possible_pairs = [pair for pair in self.possible_pairs if pair not in pairs_to_eliminate]
 
-    def receive_sally_info(self, sally_potential_pairs):
-        #sally potential pairs is a list of valid (a,b)
-        valid_pairs = []
-        for pair in self.possible_pairs:
-            possible_sums = []
-            for sally_pair in sally_potential_pairs:
-                possible_sums.append(sally_pair[0] + sally_pair[1])
-            if pair[0] + pair[1] in possible_sums:
-                valid_pairs.append((pair[0] * pair[1], pair))
-
-        new_pairs = []
-        products = []
-        for pair in valid_pairs:
-            if pair[0] not in products:
-                products.append(pair[0])
-                new_pairs.append(pair[1])
-            else:
-                #remove any existing
-                new_pairs = [p for p in new_pairs if (p[0] * p[1]) != pair[0]]
-        self.possible_pairs = new_pairs
-
-
 class Sally:
     def __init__(self, S):
         self.S = S
@@ -71,73 +51,80 @@ class Sally:
                 pairs_to_eliminate.append(pair)
         self.eliminate_pairs(pairs_to_eliminate)
 
-    def receive_paul_info(self, paul_potential_pairs):
-        #sally potential pairs is a list of valid (sum, (a,b))
-        valid_pairs = []
-
-        for pair in self.possible_pairs:
-            possible_products = []
-            for paul_pair in paul_potential_pairs:
-                possible_products.append (paul_pair[0] * paul_pair[1])
-            if pair[0] * pair[1] in possible_products:
-                valid_pairs.append((pair[0] + pair[1], pair))
-
-        new_pairs = []
-        sums = []
-        for pair in valid_pairs:
-            if pair[0] not in sums:
-                sums.append(pair[0])
-                new_pairs.append(pair[1])
-            else:
-              #remove any existing
-              new_pairs = [p for p in new_pairs if (p[0] + p[1]) != pair[0]]
-        self.possible_pairs = new_pairs
-
 class Tester:
-    def __init__(self, a, b):
-        self.a = a
-        self.b = b
-        self.P = a * b
-        self.S = a + b
+    def __init__(self):
+        self.a = random.randint(2, 19)  # Numbers greater than 1
+        self.b = random.randint(2, 19)
+        self.P = self.a * self.b
+        self.S = self.a + self.b
         self.paul = Paul(self.P)
         self.sally = Sally(self.S)
+        print(f"The secret numbers are: {self.a} and {self.b}")
 
     def run_conversation(self):
+
         print("Paul: I don't know the numbers.")
+        print(f"  Paul's possible pairs: {self.paul.possible_pairs}")
         if self.paul.knows_numbers():
-            print (f"Paul found the answer too early {self.paul.possible_pairs}")
+            print("Paul found the answer too early")
             return False
+
+        paul_knows = self.paul.knows_numbers()
 
         print("Sally: I don't know the numbers.")
-        self.sally.receive_paul_info(self.paul.possible_pairs)  # Pass Paul's info to Sally
+        print(f"  Sally's possible pairs: {self.sally.possible_pairs}")
         if self.sally.knows_numbers():
-            print (f"Sally found the answer too early {self.sally.possible_pairs}")
+            print("Sally found the answer too early")
             return False
+        
+        sally_knows = self.sally.knows_numbers()
 
-        print("Paul: I still don't know the numbers.")
-        self.paul.receive_sally_info(self.sally.possible_pairs) # Pass Sally's info to Paul
-        if self.paul.knows_numbers():
-            print (f"Paul found the answer too early {self.paul.possible_pairs}")
-            return False
+        # Sally eliminates pairs where both are prime *after* Paul says he doesn't know
+        # Because if both were prime, Paul *would* know
+        self.sally.initial_elimination()
+        print(f"  Sally's possible pairs after initial elimination: {self.sally.possible_pairs}")
 
-        print("Sally: I still don't know the numbers.")
-        self.sally.receive_paul_info(self.paul.possible_pairs)  # Pass Paul's updated info to Sally
-        if self.sally.knows_numbers():
-            print (f"Sally found the answer too early {self.sally.possible_pairs}")
-            return False
+        # Iterate while neither knows the answer
+        turn = 0
+        while (not paul_knows or not sally_knows) and turn < 7:
+            turn += 1
+            # Paul's turn to eliminate
+            if not paul_knows:
+                pairs_to_eliminate = []
+                for paul_pair in self.paul.possible_pairs:
+                    temp_sally = Sally(paul_pair[0] + paul_pair[1])
+                    if temp_sally.knows_numbers():
+                        pairs_to_eliminate.append(paul_pair)
+                self.paul.eliminate_pairs(pairs_to_eliminate)
+                print(f"Paul Turn {turn}:")
+                print(f"  Paul's possible pairs: {self.paul.possible_pairs}")
+                paul_knows = self.paul.knows_numbers()
+                if paul_knows:
+                    print("Paul now knows the numbers")
 
-        print("Paul: Now I know the numbers.")
-        if self.paul.knows_numbers():
+
+            # Sally's turn to eliminate
+            if not sally_knows:
+                pairs_to_eliminate = []
+                for sally_pair in self.sally.possible_pairs:
+                    temp_paul = Paul(sally_pair[0] * sally_pair[1])
+                    if temp_paul.knows_numbers():
+                        pairs_to_eliminate.append(sally_pair)
+                self.sally.eliminate_pairs(pairs_to_eliminate)
+                print(f"Sally Turn {turn}:")
+                print(f"  Sally's possible pairs: {self.sally.possible_pairs}")
+                sally_knows = self.sally.knows_numbers()
+                if sally_knows:
+                    print("Sally now knows the numbers")
+
+        if self.paul.knows_numbers() and self.sally.knows_numbers():
             print(f"Paul: The numbers are {self.paul.possible_pairs[0]}")
             return True
 
-        print("Paul could not determine the numbers.")
+        print("Paul and Sally could not determine the numbers.")
         return False
 
 # Main execution block
-for a in range(1, 20):
-    for b in range(a, 20):  # Avoid duplicates (a, b) and (b, a)
-        tester = Tester(a, b)
-        if tester.run_conversation():
-            print(f"Solution found for a={a}, b={b}")
+tester = Tester()
+tester.run_conversation()
 
