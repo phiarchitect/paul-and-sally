@@ -1,10 +1,20 @@
 """
-This program simulates the "Sum and Product" puzzle.
-Two numbers, a and b, are chosen between 2 and 19 (inclusive).
-Paul is given the product (P = a * b) and Sally is given the sum (S = a + b).
-They engage in a conversation to deduce the numbers.
+this code is intended to model this brainteaser:
+There are two people, Paul and Sally, both very smart logicians. Paul knows the
+product of two natural numbers, greater than zero. He doesn't know the two
+natural numbers, just their product. Sally knows the sum of the same two
+natural numbers. She doesn't know the natural numbers, just the sum. Paul knows
+that Sally knows the sum of the same two natural numbers , and Sally knows that
+Paul knows the product of the two natural numbers. Paul says to Sally "I don't
+know what the two numbers are." Sally says to Paul "I don't know what the two
+nu mbers are either." Paul says to Sally "I still don't know what the two
+numbers are." Sally says to Paul "I still don't know what they are either."
+Paul then says "Now I know what the two numbers are." What are the 2 numbers?
+
 """
+
 import random
+
 
 def is_prime(n):
     if n <= 1:
@@ -13,6 +23,7 @@ def is_prime(n):
         if n % i == 0:
             return False
     return True
+
 
 class Paul:
     def __init__(self, P):
@@ -40,9 +51,10 @@ class Paul:
 
         return len(factors) == 2
 
-
     def eliminate_pairs(self, pairs_to_eliminate):
-        self.possible_pairs = [pair for pair in self.possible_pairs if pair not in pairs_to_eliminate]
+        self.possible_pairs = [
+            pair for pair in self.possible_pairs if pair not in pairs_to_eliminate
+        ]
 
     def does_not_know_numbers(self):
         pairs_to_eliminate = []
@@ -56,11 +68,12 @@ class Paul:
 
     def get_numbers(self):
         self.asked += 1
-        self.does_not_know_numbers() # Trigger eliminations
+        self.does_not_know_numbers()  # Trigger eliminations
         if self.knows_numbers():
             return self.possible_pairs[0]
         else:
             return None
+
 
 class Sally:
     def __init__(self, S):
@@ -79,7 +92,9 @@ class Sally:
         return len(self.possible_pairs) == 1
 
     def eliminate_pairs(self, pairs_to_eliminate):
-        self.possible_pairs = [pair for pair in self.possible_pairs if pair not in pairs_to_eliminate]
+        self.possible_pairs = [
+            pair for pair in self.possible_pairs if pair not in pairs_to_eliminate
+        ]
 
     def initial_elimination(self):
         pairs_to_eliminate = []
@@ -105,16 +120,18 @@ class Sally:
         else:
             return None
 
+
 class Tester:
     def __init__(self):
         self.a = random.randint(2, 19)  # Numbers greater than 1
         self.b = random.randint(2, 19)
+        self.a = 1
+        self.b = 6
         self.P = self.a * self.b
         self.S = self.a + self.b
         self.paul = Paul(self.P)
         self.sally = Sally(self.S)
         print(f"a = {self.a}, b = {self.b}, P = {self.P}, S = {self.S}")
-
 
     def run_conversation(self):
         MAX_TURNS = 5
@@ -127,35 +144,32 @@ class Tester:
             if paul_numbers is None:
                 print(f"  Paul's possible pairs: {self.paul.possible_pairs}")
             else:
-                print("Paul now knows the numbers")
-                if self.sally.get_numbers() is not None:
-                    print(f"Paul: The numbers are {paul_numbers}")
-                    return True
-                else:
-                    print("Paul and Sally could not determine the numbers.")
-                    return False
+                print(f"  Paul knows the numbers: {paul_numbers}")
+                return
 
             sally_numbers = self.sally.get_numbers()
             if sally_numbers is None:
                 print(f"  Sally's possible pairs: {self.sally.possible_pairs}")
             else:
-                print("Sally now knows the numbers")
-                if self.paul.get_numbers() is not None:
-                    print(f"Sally: The numbers are {sally_numbers}")
-                    return True
-                else:
-                    print("Paul and Sally could not determine the numbers.")
-                    return False
+                print("   Sally knows the numbers:", sally_numbers)
+                return
+                #  if self.paul.get_numbers() is not None:
+                    #  print(f"Sally: The numbers are {sally_numbers}")
+                    #  return True
+                #  else:
+                    #  print("Paul and Sally could not determine the numbers.")
+                    #  return False
 
-            if paul_numbers is not None and sally_numbers is not None:
-                break  # Both know the numbers (shouldn't happen, but safe to check)
+            #  if paul_numbers is not None and sally_numbers is not None:
+                #  break  # Both know the numbers (shouldn't happen, but safe to check)
 
-        if self.paul.get_numbers() is not None and self.sally.get_numbers() is not None:
-            print(f"Paul: The numbers are {self.paul.get_numbers()}")
-            return True
+        #  if self.paul.get_numbers() is not None and self.sally.get_numbers() is not None:
+            #  print(f"Paul: The numbers are {self.paul.get_numbers()}")
+            #  return True
 
         print("Paul and Sally could not determine the numbers.")
         return False
+
 
 # Main execution block
 tester = Tester()
