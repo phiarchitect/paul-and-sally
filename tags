@@ -5,22 +5,41 @@
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.9~svn20110310	//
 Paul	brain_teaser.py	/^class Paul:$/;"	c
+Paul	brainteaser2.py	/^class Paul:$/;"	c
 Sally	brain_teaser.py	/^class Sally:$/;"	c
+Sally	brainteaser2.py	/^class Sally:$/;"	c
 Tester	brain_teaser.py	/^class Tester:$/;"	c
+Tester	brainteaser2.py	/^class Tester:$/;"	c
 __init__	brain_teaser.py	/^    def __init__(self):$/;"	m	class:Tester
 __init__	brain_teaser.py	/^    def __init__(self, P):$/;"	m	class:Paul
 __init__	brain_teaser.py	/^    def __init__(self, S):$/;"	m	class:Sally
+__init__	brainteaser2.py	/^    def __init__(self, P):$/;"	m	class:Paul
+__init__	brainteaser2.py	/^    def __init__(self, S):$/;"	m	class:Sally
+__init__	brainteaser2.py	/^    def __init__(self, a, b):$/;"	m	class:Tester
 does_not_know_numbers	brain_teaser.py	/^    def does_not_know_numbers(self):$/;"	m	class:Paul
 does_not_know_numbers	brain_teaser.py	/^    def does_not_know_numbers(self):$/;"	m	class:Sally
+eliminate_based_on_paul_does_not_know	brainteaser2.py	/^    def eliminate_based_on_paul_does_not_know(self):$/;"	m	class:Sally
+eliminate_based_on_paul_still_does_not_know	brainteaser2.py	/^    def eliminate_based_on_paul_still_does_not_know(self, paul_possible_products):$/;"	m	class:Sally
+eliminate_based_on_sally_does_not_know	brainteaser2.py	/^    def eliminate_based_on_sally_does_not_know(self):$/;"	m	class:Paul
+eliminate_based_on_sally_still_does_not_know	brainteaser2.py	/^    def eliminate_based_on_sally_still_does_not_know(self, sally_possible_sums):$/;"	m	class:Paul
 eliminate_pairs	brain_teaser.py	/^    def eliminate_pairs(self, pairs_to_eliminate):$/;"	m	class:Paul
 eliminate_pairs	brain_teaser.py	/^    def eliminate_pairs(self, pairs_to_eliminate):$/;"	m	class:Sally
+eliminate_pairs	brainteaser2.py	/^    def eliminate_pairs(self, pairs_to_eliminate):$/;"	m	class:Sally
 find_possible_pairs	brain_teaser.py	/^    def find_possible_pairs(self):$/;"	m	class:Paul
 find_possible_pairs	brain_teaser.py	/^    def find_possible_pairs(self):$/;"	m	class:Sally
+find_possible_pairs	brainteaser2.py	/^    def find_possible_pairs(self):$/;"	m	class:Paul
+find_possible_pairs	brainteaser2.py	/^    def find_possible_pairs(self):$/;"	m	class:Sally
 get_numbers	brain_teaser.py	/^    def get_numbers(self):$/;"	m	class:Paul
 get_numbers	brain_teaser.py	/^    def get_numbers(self):$/;"	m	class:Sally
 initial_elimination	brain_teaser.py	/^    def initial_elimination(self):$/;"	m	class:Sally
+initial_elimination	brainteaser2.py	/^    def initial_elimination(self):$/;"	m	class:Sally
 is_prime	brain_teaser.py	/^def is_prime(n):$/;"	f
+is_prime	brainteaser2.py	/^def is_prime(n):$/;"	f
 knows_numbers	brain_teaser.py	/^    def knows_numbers(self):$/;"	m	class:Paul
 knows_numbers	brain_teaser.py	/^    def knows_numbers(self):$/;"	m	class:Sally
+knows_numbers	brainteaser2.py	/^    def knows_numbers(self):$/;"	m	class:Paul
+knows_numbers	brainteaser2.py	/^    def knows_numbers(self):$/;"	m	class:Sally
 run_conversation	brain_teaser.py	/^    def run_conversation(self):$/;"	m	class:Tester
+run_conversation	brainteaser2.py	/^    def run_conversation(self):$/;"	m	class:Tester
 tester	brain_teaser.py	/^tester = Tester()$/;"	v
+tester	brainteaser2.py	/^tester = Tester(4, 13)$/;"	v
