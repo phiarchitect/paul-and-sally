@@ -1,3 +1,9 @@
+"""
+This program simulates the "Sum and Product" puzzle.
+Two numbers, a and b, are chosen between 2 and 19 (inclusive).
+Paul is given the product (P = a * b) and Sally is given the sum (S = a + b).
+They engage in a conversation to deduce the numbers.
+"""
 import random
 
 def is_prime(n):
