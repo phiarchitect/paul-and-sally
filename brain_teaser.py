@@ -96,6 +96,8 @@ class Tester:
         self.S = self.a + self.b
         self.paul = Paul(self.P)
         self.sally = Sally(self.S)
+        print(f"a = {self.a}, b = {self.b}, P = {self.P}, S = {self.S}")
+
 
     def run_conversation(self):
         MAX_TURNS = 5
